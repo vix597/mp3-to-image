@@ -1,3 +1,3 @@
-# mp3-to-ico
+# mp3-to-image
 
-An MP3 to ICO converter (yes...song to image)
+An MP3 to iamge converter
