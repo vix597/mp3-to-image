@@ -9,6 +9,10 @@ SQUARE_COLOR = (255, 0, 0, 255)
 ICON_SIZE = (512, 512)
 
 
+def get_song_info_for_pixel(pixel_idx: int) -> Tuple[bool, float]:
+    """Get song info for the pixel at the provided pixel index."""
+
+
 def generate_pixels(resolution: Tuple[int, int]) -> np.ndarray:
     """Generate pixels of an image with the provided resolution."""
     pixels = []
@@ -26,6 +30,11 @@ def generate_pixels(resolution: Tuple[int, int]) -> np.ndarray:
 
 def main():
     """Entry point."""
+    parser = argparse.ArgumentParser("Convert an MP3 into an image")
+    parser.add_argument(
+        "-s", "--song", action="store",
+        help="Path to an .mp3 file", required=True)
+    args = parser.parse_args()
 
     # For now, just make a solid color square, one pixel at a time,
     # for each resolution of our image.
