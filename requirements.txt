@@ -1,3 +1,3 @@
 pillow
 librosa
-numpy
+numpy<=1.20
