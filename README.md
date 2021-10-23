@@ -1,3 +1,4 @@
-# mp3-to-image
+# MP3 To Image
 
-An MP3 to iamge converter
+An MP3 to image converter
+

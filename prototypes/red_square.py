@@ -1,20 +1,16 @@
-"""Create a red square one pixel at a time."""
 import numpy as np
 from PIL import Image
 from typing import Tuple
 
-# Let's make a red square
-SQUARE_COLOR = (255, 0, 0, 255)
-
-# The recommended minimum size from WordPress
-ICON_SIZE = (512, 512)
+SQUARE_COLOR = (255, 0, 0, 255)  # Let's make a red square
+ICON_SIZE = (512, 512)  # The recommended minimum size from WordPress
 
 
 def generate_pixels(resolution: Tuple[int, int]) -> np.ndarray:
     """Generate pixels of an image with the provided resolution."""
     pixels = []
 
-    # Eventually we'll extend this to generate an image one pixel at a time
+    # Eventually I'll extend this to generate an image one pixel at a time
     # based on an input song.
     for _row in range(resolution[1]):
         cur_row = []
