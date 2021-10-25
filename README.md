@@ -10,6 +10,13 @@ _Tested with Python 3.9.7 64-bit on Windows 10. The command will be for a Window
 1. Create a virtual environment: `python -m venv ./venv`
 1. Activate the environment (from PowerShell): `./venv/Scripts/Activate.ps1`
 1. Install the dependencies: `pip install -r requirements.txt`
+1. You will also need `pyaudio` (for visualizations). I don't have a build environment on Windows so I found `pipwin` to be helpful:
+
+    ```PowerShell
+    pip install pipwin
+    pipwin install pyaudio
+    ```
+
 1. Run the app and get help: `python -m mp3toimage -h`
 
 ## Examples
@@ -30,18 +37,6 @@ _Tested with Python 3.9.7 64-bit on Windows 10. The command will be for a Window
 
     ```PowerShell
     python -m mp3toimage -h
-    usage: Convert an MP3 into an image [-h] -s SONG [-r RESOLUTION] [-b BEAT_COLOR] [-o OFF_BEAT_COLOR] [--alg {basic,fib,garbage,middle,wrap}] [--out-dir OUT_DIR]
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -s SONG, --song SONG  Path to an .mp3 file
-      -r RESOLUTION, --resolution RESOLUTION
-                              One or more resolutions for the images in the form <num>x<num>
-      -b BEAT_COLOR, --beat-color BEAT_COLOR
-                              Color used for beat pixels
-      -o OFF_BEAT_COLOR, --off-beat-color OFF_BEAT_COLOR
-                              Color used for off-beat pixels
-      --alg {basic,fib,garbage,middle,wrap}
-                              Which algorithm to use. One of: dict_keys(['basic', 'fib', 'garbage', 'middle', 'wrap'])
-      --out-dir OUT_DIR     The output directory (default current directory)
+    UPDATE
     ```
