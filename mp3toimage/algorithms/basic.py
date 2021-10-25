@@ -38,7 +38,7 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
 
         direction_idx += turn_amnt
 
-        # Turn more if it's above average
+        # Turn more if it's above average - TODO: This changes the image a lot. Make it optional
         if amp > song.overall_avg_amplitude:
             direction_idx += 2
         elif amp < (song.overall_avg_amplitude * -1):
@@ -48,8 +48,7 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
 
         # Update the current direction
         direction = directions[direction_idx]
-
-        update_position(pos, direction, song.resolution, args, turn_amnt, directions)
+        pos, direction = update_position(pos, direction, song.resolution, args, turn_amnt, directions, direction_idx)
 
         # Do the real update to the position now that
         # we know it will be valid.

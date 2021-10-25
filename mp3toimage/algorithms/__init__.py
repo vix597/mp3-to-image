@@ -33,13 +33,14 @@ def test_direction(pos: Point, direction: Point, resolution: Point) -> bool:
 
 def update_position(
     pos: Point, direction: Point, resolution: Point,
-    args: argparse.Namespace, turn_amnt: int = 1,
-    directions: tuple = DIRECTIONS_45) -> None:
-    """Update the pos or direction argument based on the input pos and direction."""
+    args: argparse.Namespace, turn_amnt: int,
+    directions: tuple, direction_idx: int) -> Point:
+    """Update the pos or direction based on the input pos and direction."""
 
-    check_pos = Point(pos.x, pos.y)
-    check_pos.x += direction.x
-    check_pos.y += direction.y
+    if args.wrap_collisions or args.collide_180:
+        check_pos = Point(pos.x, pos.y)
+        check_pos.x += direction.x
+        check_pos.y += direction.y
 
     if args.wrap_collisions:
         # Wrap if we're outside the bounds
@@ -52,17 +53,19 @@ def update_position(
             pos.y = 0
         elif check_pos.y < 0:
             pos.y = resolution.y - 1
-        return
+        return pos, direction
 
     if args.collide_180:
         if check_pos.x >= resolution.x or check_pos.x < 0:
             direction.x *= -1
         if check_pos.y >= resolution.y or check_pos.y < 0:
             direction.y *= -1
-        return
+        return pos, direction
 
     # If that direction won't work, keep going until we get one that will
     while not test_direction(pos, direction, resolution):
         direction_idx += turn_amnt
         direction_idx = direction_idx % len(directions)
         direction = directions[direction_idx]
+
+    return pos, direction

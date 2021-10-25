@@ -58,8 +58,7 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
 
         # Update the current direction
         direction = directions[direction_idx]
-
-        update_position(pos, direction, song.resolution, args, turn_amnt, directions)
+        pos, direction = update_position(pos, direction, song.resolution, args, turn_amnt, directions, direction_idx)
 
         # Do the real update to the position now that
         # we know it will be valid.
