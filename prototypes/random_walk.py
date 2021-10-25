@@ -47,7 +47,7 @@ def walk_pixels(pixels: np.ndarray):
             ])
 
         # Set the pixel at the current position to red
-        pixels[pos.x][pos.y] = NEW_COLOR
+        pixels[pos.y][pos.x] = NEW_COLOR
 
         # Compute the next position (the spot we will go
         # if we continue in this direction).

@@ -7,9 +7,7 @@ from mp3toimage.song import SongImage
 from mp3toimage.util import Color
 
 
-def generate_image(
-    pixels: np.ndarray, song: SongImage, beat_color: Color,
-    off_beat_color: Color, overwrite: bool = True) -> None:
+def generate_image(pixels: np.ndarray, song: SongImage, beat_color: Color, off_beat_color: Color) -> None:
     """Generate pixels of an image with the provided resolution."""
 
     pixel_idx = 0

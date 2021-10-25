@@ -43,9 +43,9 @@ def generate_pixels(resolution: Point) -> np.ndarray:
     """Generate transparent pixels for an image."""
     pixels = []
 
-    for _row in range(resolution.x):
+    for _row in range(resolution.y):
         cur_row = []
-        for _col in range(resolution.y):
+        for _col in range(resolution.x):
             cur_row.append(Color.transparent().as_tuple())
         pixels.append(cur_row)
 
