@@ -1,15 +1,24 @@
-"""A basic algorithm."""
+"""An algorithm using the Fibonacci sequence to choose direction that takes tighter turns than fib."""
 import argparse
 import numpy as np
-from typing import List
+from typing import Iterator, List
 
 from mp3toimage.song import SongImage
 from mp3toimage.util import Point, Color
-from mp3toimage.algorithms import DIRECTIONS_45, DIRECTIONS_90, update_position, PlaybackItem
+from mp3toimage.algorithms import DIRECTIONS_45, DIRECTIONS_90, PlaybackItem, update_position
+
+
+def fib() -> Iterator[int]:
+    """Fibonacci sequence."""
+    a, b = 0, 1
+    while 1:
+        yield a
+        a, b = b, a + b
 
 
 def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace, pb_list: List[PlaybackItem] = None) -> None:
     """Walk the image."""
+    seq = fib()
     pos = Point(0, 0)
     if args.start_middle:
         pos = Point(int(song.resolution.x / 2), int(song.resolution.y / 2))
@@ -36,18 +45,11 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
 
         # Try to choose a direction
         if amp > 0:
-            turn_amnt = 1
+            turn_amnt = next(seq)
         else:
-            turn_amnt = -1
+            turn_amnt = (next(seq) * -1)
 
         direction_idx += turn_amnt
-
-        # Turn more if it's above average
-        if amp > song.overall_avg_amplitude:
-            direction_idx += 2
-        elif amp < (song.overall_avg_amplitude * -1):
-            direction_idx -= 2
-
         direction_idx = direction_idx % len(directions)
 
         # Update the current direction

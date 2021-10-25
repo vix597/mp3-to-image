@@ -1,11 +1,11 @@
 """An algorithm using the Fibonacci sequence to choose direction."""
 import argparse
 import numpy as np
-from typing import Iterator
+from typing import Iterator, List
 
 from mp3toimage.song import SongImage
 from mp3toimage.util import Point, Color
-from mp3toimage.algorithms import DIRECTIONS_45, DIRECTIONS_90, update_position
+from mp3toimage.algorithms import DIRECTIONS_45, DIRECTIONS_90, PlaybackItem, update_position
 
 
 def fib() -> Iterator[int]:
@@ -16,7 +16,7 @@ def fib() -> Iterator[int]:
         a, b = b, a + b
 
 
-def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace) -> None:
+def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace, pb_list: List[PlaybackItem] = None) -> None:
     """Walk the image."""
     seq = fib()
     pos = Point(0, 0)
@@ -31,7 +31,7 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
     direction = directions[direction_idx]
 
     for idx in range(song.num_pixels):
-        beat, amp = song.get_info_at_pixel(idx)
+        beat, amp, timestamp = song.get_info_at_pixel(idx)
         pixel = Color.from_tuple(pixels[pos.y][pos.x])
 
         # Set the color
@@ -39,6 +39,9 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
             pixels[pos.y][pos.x] = args.off_beat_color.as_tuple()
         elif pixel == Color.transparent() or pixel == args.off_beat_color:
             pixels[pos.y][pos.x] = args.beat_color.as_tuple()
+
+        if pb_list is not None:
+            pb_list.append(PlaybackItem(pos, Color.from_tuple(pixels[pos.y][pos.x]), timestamp, song.pixel_time))
 
         # Try to choose a direction
         if amp > 0:

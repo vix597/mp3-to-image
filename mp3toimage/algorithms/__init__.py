@@ -1,7 +1,7 @@
 """Algorithms for generating the images."""
 import argparse
 
-from mp3toimage.util import Point
+from mp3toimage.util import Point, Color
 
 DIRECTIONS_45 = (
     Point(1, 0), Point(1, 1), Point(0, 1),
@@ -12,6 +12,23 @@ DIRECTIONS_90 = (
     Point(1, 0), Point(0, 1),
     Point(-1, 0), Point(0, -1)
 )
+
+
+class PlaybackItem:
+    """When doing live visualization, this represents a pixel."""
+
+    def __init__(self, position: Point, color: Color, timestamp: float, duration: float):
+        self.position = position
+        self.color = color
+        self.timestamp = timestamp
+        self.duration = duration
+        self.max_timestamp = self.timestamp + duration
+
+    def is_valid_for_timestamp(self, timestamp: float):
+        return timestamp >= self.timestamp and timestamp < self.max_timestamp
+
+    def __str__(self):
+        return f"Pixel: ({self.position.x},{self.position.y}). Color: {self.color}. Time: {self.timestamp}"
 
 
 def test_direction(pos: Point, direction: Point, resolution: Point) -> bool:

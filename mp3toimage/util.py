@@ -38,6 +38,9 @@ class Color:
                self.blue == other.blue and\
                self.alpha == other.alpha
 
+    def __str__(self):
+        return f"({self.red},{self.green},{self.blue},{self.alpha})"
+
 
 def generate_pixels(resolution: Point) -> np.ndarray:
     """Generate transparent pixels for an image."""

@@ -1,11 +1,11 @@
-"""A basic algorithm."""
+"""A basic algorithm that makes tighter turns than basic."""
 import argparse
 import numpy as np
 from typing import List
 
 from mp3toimage.song import SongImage
 from mp3toimage.util import Point, Color
-from mp3toimage.algorithms import DIRECTIONS_45, DIRECTIONS_90, update_position, PlaybackItem
+from mp3toimage.algorithms import DIRECTIONS_45, DIRECTIONS_90, PlaybackItem, update_position
 
 
 def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace, pb_list: List[PlaybackItem] = None) -> None:
@@ -41,13 +41,6 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
             turn_amnt = -1
 
         direction_idx += turn_amnt
-
-        # Turn more if it's above average
-        if amp > song.overall_avg_amplitude:
-            direction_idx += 2
-        elif amp < (song.overall_avg_amplitude * -1):
-            direction_idx -= 2
-
         direction_idx = direction_idx % len(directions)
 
         # Update the current direction
