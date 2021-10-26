@@ -18,7 +18,7 @@ class PlaybackItem:
     """When doing live visualization, this represents a pixel."""
 
     def __init__(self, position: Point, color: Color, timestamp: float, duration: float):
-        self.position = position
+        self.position = Point(position.x, position.y)
         self.color = color
         self.timestamp = timestamp
         self.duration = duration

@@ -27,10 +27,10 @@ _Tested with Python 3.9.7 64-bit on Windows 10. The command will be for a Window
     python -m mp3toimage -s .\brass_monkey.mp3
     ```
 
-* Generate 7 different resolution images from the song "Brass Monkey" by the Beastie Boys with the "wrap" algorithm and save the results in the current directory:
+* Generate 7 different resolution images from the song "Brass Monkey" by the Beastie Boys with wrapping collisions and save the results in the current directory:
 
     ```PowerShell
-    python -m mp3toimage -s .\brass_monkey.mp3 -r 1920x1080 -r 1024x1024 -r 512x512 -r 32x32 -r 48x48 -r 96x96 -r 128x128 --alg wrap
+    python -m mp3toimage -s .\brass_monkey.mp3 -r 1920x1080 -r 1024x1024 -r 512x512 -r 32x32 -r 48x48 -r 96x96 -r 128x128 --wrap-collision
     ```
 
 * Full help output:

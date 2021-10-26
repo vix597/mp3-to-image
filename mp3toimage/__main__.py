@@ -9,6 +9,7 @@ from typing import List
 from PIL import Image
 
 import mp3toimage.algorithms
+from mp3toimage.vis import visualize_song
 from mp3toimage.song import NotEnoughSong, SongImage
 from mp3toimage.util import generate_pixels, Point, Color
 
@@ -78,7 +79,7 @@ def generate_image(resolution: Point, song_path: str, args: argparse.Namespace):
     img.save(out_path)
 
     if args.playback:
-        pass  # TODO
+        visualize_song(song_path, resolution, pb_list, song.pixel_time)
 
 
 def main():
@@ -98,7 +99,7 @@ def main():
         "--recursive", action="store_true",
         help="If any of the songs provided are directories, list files recursively.")
     parser.add_argument(
-        "-r", "--resolution", action="append", default=["512x512"],
+        "-r", "--resolution", action="append",
         help="One or more resolutions for the images in the form <num>x<num>")
     parser.add_argument(
         "-b", "--beat-color", action="store", default="255,221,74",
@@ -134,7 +135,10 @@ def main():
              "180 degrees rather than turning to find a new valid direction.")
 
     args = parser.parse_args()
-    args.resolution = list(set(args.resolution))  # Remove duplicate resolutions
+    if not args.resolution:
+        args.resolution.append("512x512")
+    else:
+        args.resolution = list(set(args.resolution))  # Remove duplicate resolutions
 
     # Validate the colors
     try:
