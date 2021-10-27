@@ -9,7 +9,6 @@ from typing import List
 from PIL import Image
 
 import mp3toimage.algorithms
-from mp3toimage.vis import visualize_song
 from mp3toimage.song import NotEnoughSong, SongImage
 from mp3toimage.util import generate_pixels, Point, Color
 
@@ -50,6 +49,7 @@ def iter_namespace(ns_pkg):
 
 def generate_image(resolution: Point, song_path: str, args: argparse.Namespace):
     """Generate an image from a song."""
+    pb_file = None
     out_file, _ = os.path.splitext(os.path.basename(song_path))
     out_file += f"-{resolution.x}x{resolution.y}"
     if args.wrap_collisions:
@@ -60,6 +60,8 @@ def generate_image(resolution: Point, song_path: str, args: argparse.Namespace):
         out_file += "-middle"
     if args.four_directions:
         out_file += "-4dir"
+    if args.playback:
+        pb_file = os.path.join(args.out_dir, out_file + ".pb")
     out_file += f"-{args.alg}.png"
     out_path = os.path.join(args.out_dir, out_file)
 
@@ -78,8 +80,12 @@ def generate_image(resolution: Point, song_path: str, args: argparse.Namespace):
     img = Image.fromarray(img_pixels)
     img.save(out_path)
 
-    if args.playback:
-        visualize_song(song_path, resolution, pb_list, song.pixel_time)
+    if pb_file and pb_list:
+        with open(pb_file, "w") as fh:
+            fh.write(os.path.abspath(song_path) + "\n")
+            fh.write(f"{resolution.x},{resolution.y}\n")
+            for item in pb_list:
+                fh.write(str(item) + "\n")
 
 
 def main():
@@ -136,7 +142,7 @@ def main():
 
     args = parser.parse_args()
     if not args.resolution:
-        args.resolution.append("512x512")
+        args.resolution = ["512x512"]
     else:
         args.resolution = list(set(args.resolution))  # Remove duplicate resolutions
 

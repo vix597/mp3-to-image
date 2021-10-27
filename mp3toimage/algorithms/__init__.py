@@ -24,11 +24,15 @@ class PlaybackItem:
         self.duration = duration
         self.max_timestamp = self.timestamp + duration
 
-    def is_valid_for_timestamp(self, timestamp: float):
-        return timestamp >= self.timestamp and timestamp < self.max_timestamp
-
     def __str__(self):
-        return f"Pixel: ({self.position.x},{self.position.y}). Color: {self.color}. Time: {self.timestamp}"
+        return f"{self.position.x},{self.position.y},{self.color},{self.timestamp},{self.duration}"
+
+    def __eq__(self, o: object) -> bool:
+        return self.position.x == o.position.x and\
+               self.position.y == o.position.y
+
+    def __hash__(self) -> int:
+        return hash(self.position)
 
 
 def test_direction(pos: Point, direction: Point, resolution: Point) -> bool:

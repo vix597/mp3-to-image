@@ -35,6 +35,3 @@ def generate_image(pixels: np.ndarray, song: SongImage, beat_color: Color, off_b
 
             pixels[col][row] = (r, g, b, a)
             pixel_idx += 1
-
-            if pb_list is not None:
-                pb_list.append(PlaybackItem(Point(col, row), Color.from_tuple(pixels[col][row]), timestamp, song.pixel_time))

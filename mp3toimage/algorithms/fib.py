@@ -35,12 +35,15 @@ def generate_image(pixels: np.ndarray, song: SongImage, args: argparse.Namespace
         pixel = Color.from_tuple(pixels[pos.y][pos.x])
 
         # Set the color
+        pixel_changed = False
         if not beat and pixel == Color.transparent():
             pixels[pos.y][pos.x] = args.off_beat_color.as_tuple()
+            pixel_changed = True
         elif pixel == Color.transparent() or pixel == args.off_beat_color:
             pixels[pos.y][pos.x] = args.beat_color.as_tuple()
+            pixel_changed = True
 
-        if pb_list is not None:
+        if pixel_changed and pb_list is not None:
             pb_list.append(PlaybackItem(pos, Color.from_tuple(pixels[pos.y][pos.x]), timestamp, song.pixel_time))
 
         # Try to choose a direction

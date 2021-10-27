@@ -11,6 +11,9 @@ class Point:
         self.x = x
         self.y = y
 
+    def __hash__(self) -> int:
+        return hash(f"{self.x},{self.y}")
+
 
 class Color:
     """A class to represent a color."""
@@ -39,7 +42,7 @@ class Color:
                self.alpha == other.alpha
 
     def __str__(self):
-        return f"({self.red},{self.green},{self.blue},{self.alpha})"
+        return f"{self.red},{self.green},{self.blue},{self.alpha}"
 
 
 def generate_pixels(resolution: Point) -> np.ndarray:
