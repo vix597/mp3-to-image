@@ -35,42 +35,42 @@ void parseFile(String filepath) {
     BufferedReader reader = createReader(filepath);
     String line = null;
     int index = -1;
-      
+
     try {
         while ((line = reader.readLine()) != null) {
             index++;
-            
+
             if (index == 0) {
                 // First item is the full path to the song file
                 soundFilePath = line;
                 continue;
             }
-      
+
             // All items begin with an x and y
             String[] pieces = split(line, ",");
             int x = int(pieces[0]);
             int y = int(pieces[1]);
-      
+
             if (index == 1) {
                 // but, the second item is just the image resolution. So just x,y
                 resolutionX = x;
                 resolutionY = y;
                 continue;
             }
-      
+
             int r = int(pieces[2]);
             int g = int(pieces[3]);
             int b = int(pieces[4]);
             int a = int(pieces[5]);
             float timestamp = float(pieces[6]);
-                       
+
             pbItems.add(new PlaybackItem(x, y, r, g, b, a, timestamp));
         }
         reader.close();
     } catch (IOException e) {
         e.printStackTrace();
     }
-} 
+}
 
 void setup() {
     size(600, 600);
@@ -82,19 +82,19 @@ void setup() {
 void draw() {
     if (pbFilePath != null && !setupComplete) {
         println("Parsing: " + pbFilePath);
-        parseFile(pbFilePath);            
+        parseFile(pbFilePath);
         if (soundFilePath == null) {
             exit();
         }
         println("Image Resolution: " + resolutionX + "x" + resolutionY);
         println("Playing: " + soundFilePath);
-        
+
         // Resize the window
         surface.setTitle(soundFilePath);
         surface.setResizable(true);
         surface.setSize(resolutionX, resolutionY);
         surface.setResizable(false);
-             
+
         // Load and play the song
         soundFile = new SoundFile(this, soundFilePath);
         if (soundFile == null) {
@@ -104,11 +104,11 @@ void draw() {
         soundFile.play();
         setupComplete = true;
     }
-    
-    if (!setupComplete || !soundFile.isPlaying()) {
+
+    if (!setupComplete || !soundFile.isPlaying() || pbItems.size() == 0) {
         return;
     }
-    
+
     float songPos = soundFile.position();
     int count = 0;
     PlaybackItem item = pbItems.get(0);

@@ -74,7 +74,7 @@ class SongImage:
             "tempo": self.tempo
         }
 
-    def get_info_at_pixel(self, pixel_idx: int) -> Tuple[bool, float]:
+    def get_info_at_pixel(self, pixel_idx: int) -> Tuple[bool, float, float]:
         """Get song info for the pixel at the provided pixel index."""
         beat = False
         song_time = pixel_idx * self.pixel_time
