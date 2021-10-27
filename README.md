@@ -10,13 +10,6 @@ _Tested with Python 3.9.7 64-bit on Windows 10. The command will be for a Window
 1. Create a virtual environment: `python -m venv ./venv`
 1. Activate the environment (from PowerShell): `./venv/Scripts/Activate.ps1`
 1. Install the dependencies: `pip install -r requirements.txt`
-1. You will also need `pyaudio` (for visualizations). I don't have a build environment on Windows so I found `pipwin` to be helpful:
-
-    ```PowerShell
-    pip install pipwin
-    pipwin install pyaudio
-    ```
-
 1. Run the app and get help: `python -m mp3toimage -h`
 1. To do live playback of the image generation you will need [Processing 4](https://processing.org/)
     1. Extract Processing
