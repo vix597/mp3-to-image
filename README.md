@@ -4,7 +4,7 @@ An MP3 to image converter. Code breakdown and sample images in [the associated b
 
 # Installation
 
-_Tested with Python 3.9.7 64-bit on Windows 10. The command will be for a Windows setup but it should also work on Linux with slight modification to the environment setup steps._
+_Tested with Python 3.9.7 64-bit on Windows 10. The commands below will be for a Windows setup but it should also work on Linux with slight modification to the environment setup steps._
 
 1. Install Python
 1. Create a virtual environment: `python -m venv ./venv`
