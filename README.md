@@ -1,6 +1,6 @@
 # MP3 To Image
 
-An MP3 to image converter. Code breakdown and sample images in [the associated blog post](https://seanlaplante.com/index.php/2021/10/27/creating-an-icon-from-a-song/). Why?  ¯\_(ツ)_/¯
+An MP3 to image converter. Code breakdown and sample images in [the associated blog post](https://seanlaplante.com/index.php/2021/10/27/creating-an-icon-from-a-song/). Why?  ¯\\_(ツ)_/¯
 
 # Installation
 
